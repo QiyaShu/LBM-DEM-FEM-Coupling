@@ -15,7 +15,8 @@
  *
  * Copyright 2014 Johannes Kepler University Linz
  *
- * Author: Philippe Seil (philippe.seil@jku.at)
+ * Original Author: Philippe Seil (philippe.seil@jku.at)
+ * Adapted by Qiya Shu (shu@wsa.rwth-aachen.de)
  */
 
 #include "ibDef.h"
@@ -29,8 +30,6 @@
 #include "fix_lb_coupling_onetoone.h"
 
 namespace plb{
-
-
 
   /*
    * implementation of SetSingleEllipsoid3D
@@ -121,6 +120,7 @@ namespace plb{
     
   }
 
+	
   template<typename T, template<typename U> class Descriptor>
   T SetSingleEllipsoid3D<T,Descriptor>::calcSolidFractionE(T const dx_, T const dy_, T const dz_, T const sa_, T const sb_, T const sc_, T const q0_, T const q1_, T const q2_, T const q3_)
   {
@@ -180,7 +180,6 @@ namespace plb{
   }
 
 
-
   template<typename T, template<typename U> class Descriptor>
   void SetSingleEllipsoid3D<T,Descriptor>::setValues(IBdynamicsParticleData<T,Descriptor> &p,
                                                   T const sf, T const dx, T const dy, T const dz)
@@ -194,7 +193,8 @@ namespace plb{
     p.solidFraction = sf;
     p.partId = id;
   }
-  
+
+	
   template<typename T, template<typename U> class Descriptor>
   void SetSingleEllipsoid3D<T,Descriptor>::setToZero(IBdynamicsParticleData<T,Descriptor> &p)
   {
@@ -204,12 +204,6 @@ namespace plb{
     p.solidFraction = 0;
     p.partId = 0;
   }
-
-
-
-
-
-
 
 
 
