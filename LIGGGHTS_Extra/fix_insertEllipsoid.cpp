@@ -631,12 +631,8 @@ void FixInsertEllipsoid::pre_exchange()
   x_v_omega(ninsert_this_local,ninserted_this_local,ninserted_spheres_this_local,mass_inserted_this_local);
 
   // actual particle insertion
-std::cout<< "Success check1."<< std::endl; 
   fix_distribution->pre_insert();
-std::cout<< "Success check2."<< std::endl; 
-std::cout<< "ninserted_this_local: "<< ninserted_this_local << std::endl; 
   ninserted_spheres_this_local = fix_distribution->insert(ninserted_this_local);
-std::cout<< "Success check3."<< std::endl; 
   // warn if max # insertions exceeded by random processes
   if (ninsert_exists && ninserted + ninsert_this > ninsert)
   {
@@ -659,21 +655,17 @@ std::cout<< "Success check3."<< std::endl;
     }
   }
 
-  // give particle distributions the chance to do some wrap-up
-std::cout<< "Success check4."<< std::endl;   
+  // give particle distributions the chance to do some wrap-up   
   fix_distribution->finalize_insertion();
-std::cout<< "Success check5."<< std::endl; 
-  // give derived classes the chance to do some wrap-up
-  
-  finalize_insertion(ninserted_spheres_this_local);
-std::cout<< "Success check6."<< std::endl; 
+  // give derived classes the chance to do some wrap-up  
+  finalize_insertion(ninserted_spheres_this_local); 
   // tally stats
   MPI_Sum_Scalar(ninserted_this_local,ninserted_this,world);
   ninserted += ninserted_this;
   MPI_Sum_Scalar(mass_inserted_this_local,mass_inserted_this,world);
   massinserted += mass_inserted_this;
   print_stats_during(ninserted_this,mass_inserted_this);
-std::cout<< "Success check7."<< std::endl; 
+
   if(ninserted_this < ninsert_this && comm->me == 0)
       error->warning(FLERR,"Particle insertion: Less insertions than requested");
 
