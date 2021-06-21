@@ -23,8 +23,6 @@
    This software is distributed under the GNU General Public License.
 
    See the README file in the top-level directory.
-
-Modified from Sphere to Ellipsoid
 ------------------------------------------------------------------------- */
 
 #ifdef FIX_CLASS
