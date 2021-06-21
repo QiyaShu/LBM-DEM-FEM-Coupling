@@ -2,10 +2,10 @@
 The model enables heat transfer simulation of suspensions with ellipsoidal particles.
 
 It's built based on following open-sorce codes:
-LBM: Palabos v2.1r0 (https://palabos.unige.ch/)
-DEM: LIGGGHTS v3.1.0 (https://www.cfdem.com/media/DEM/docu/Manual.html)
-LB-DEM Coupling: Philippe Seil (https://github.com/ParticulateFlow/LBDEMcoupling-public)
-FEM: QuickerSim on MATLAB® (https://quickersim.com/about/)
+-LBM: Palabos v2.1r0 (https://palabos.unige.ch/)
+-DEM: LIGGGHTS v3.1.0 (https://www.cfdem.com/media/DEM/docu/Manual.html)
+-LB-DEM Coupling: Philippe Seil (https://github.com/ParticulateFlow/LBDEMcoupling-public)
+-FEM: QuickerSim on MATLAB® (https://quickersim.com/about/)
 
 ## Installation
 1. install Palabos;
@@ -15,7 +15,7 @@ FEM: QuickerSim on MATLAB® (https://quickersim.com/about/)
     - make yes-ASPHERE yes-RIGID (insert necessary packages, and copy necessary files from lammps/src);
     - copy files in the LIGGGHTS_Extra folder to LIGGGHTS-PUBLIC/src (these enable inserting pack of ellipsoids);
     - (make fedora; mpirun lmp_fedora < in.ellipsoid; run an example to see whether LIGGGHTS works well);
-    - make makeshlib (update makefile.shlib file, what will be included in SrcPath later);
+    - make makeshlib (update makefile.shlib file, what will be used to build the shared library);
     - make -f Makefile.shlib fedora_fpic (create shared library lammps.so);
 3. install LBDEMCoupling
     - git clone (this repository);
