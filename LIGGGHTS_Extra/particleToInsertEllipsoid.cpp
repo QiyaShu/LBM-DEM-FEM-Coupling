@@ -107,7 +107,7 @@ int ParticleToInsertEllipsoid::insert()
 //-------------------------------------------------------------------
         //}
     }
-std::cout<< "Success check2.4."<< std::endl;   
+
     return inserted;
 }
 
