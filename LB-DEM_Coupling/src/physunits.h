@@ -15,7 +15,8 @@
  *
  * Copyright 2014 Johannes Kepler University Linz
  *
- * Author: Philippe Seil (philippe.seil@jku.at)
+ * Original Author: Philippe Seil (philippe.seil@jku.at)
+ * Adapted by Qiya Shu (shu@wsa.rwth-aachen.de)
  */
 
 #ifndef PHYSUNITS_H
