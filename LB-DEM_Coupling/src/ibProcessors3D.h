@@ -15,7 +15,8 @@
  *
  * Copyright 2014 Johannes Kepler University Linz
  *
- * Author: Philippe Seil (philippe.seil@jku.at)
+ * Original Author: Philippe Seil (philippe.seil@jku.at)
+ * Adapted by Qiya Shu (shu@wsa.rwth-aachen.de)
  */
 #ifndef IB_PROCESSORS_3D_H
 #define IB_PROCESSORS_3D_H
@@ -57,9 +58,6 @@ namespace plb{
                    T const sf, T const dx, T const dy, T const dz);
     void setToZero(IBdynamicsParticleData<T,Descriptor> &p);
   };
-
-
-
 
 
 
