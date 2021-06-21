@@ -78,7 +78,6 @@ int ParticleToInsertEllipsoid::insert()
 
     LAMMPS_NS::AtomVecEllipsoid *ellip = (LAMMPS_NS::AtomVecEllipsoid*)atom->avec;
 
-std::cout<< "ParticleToInsertEllip nsphere:" << nspheres <<  std::endl; 
     for(int i = 0; i < nspheres; i++)
     {
         
@@ -91,26 +90,19 @@ std::cout<< "ParticleToInsertEllip nsphere:" << nspheres <<  std::endl;
                 else
                     ellip->create_atom(atom_type,x_ins[i]);
                 int m = atom->nlocal - 1;
-std::cout<< "m: "<< m << std::endl;
                 atom->mask[m] = 1 | groupbit;
                 vectorCopy3D(v_ins,atom->v[m]);
-std::cout<< "v_ins: "<< *v_ins << "; " << "atom->v[m]: " << *atom->v[m] << std::endl;
                 //vectorCopy3D(omega_ins,atom->omega[m]);
-std::cout<< "Success check2.1."<< std::endl;
                 atom->rmass[m] = mass_ins;
-std::cout<< "rmass_ins: "<< mass_ins << "; " << std::endl;
-std::cout<< "atom->rmass[m]: "<< atom->rmass[m] << "; " << std::endl;
                 //pre_set_arrays() called above
                 for (int j = 0; j < nfix; j++)
                    if (fix[j]->create_attribute) fix[j]->set_arrays(m);
-std::cout<< "Success check2.2."<< std::endl;
+
 //Ellipsoid bonus-------------------------------------------------
-                ellip->set_shape(m, shape_ins[0], shape_ins[1], shape_ins[2]);
-std::cout<< "Success check2.3."<< std::endl; 
+                ellip->set_shape(m, shape_ins[0], shape_ins[1], shape_ins[2]); 
                 for (int j=0; j<4; j++)
 		    ellip->bonus[m].quat[j] = quat_ins[j]; 
                 //vectorCopy3D(inertia_ins, ellip->bonus[i].inertia[m]);
-
                 //MathExtraLiggghtsNonspherical::omega_to_angmom(ellip->bonus[i].quat[m], atom->omega[m], atom->inertia[m], angmom[m]);
 //-------------------------------------------------------------------
         //}
