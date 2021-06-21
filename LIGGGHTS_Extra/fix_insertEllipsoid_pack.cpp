@@ -124,8 +124,6 @@ FixInsertEllipsoidPack::FixInsertEllipsoidPack(LAMMPS *lmp, int narg, char **arg
   if(strcmp(style,"insertEllipsoid/pack") == 0)
     ninsert_exists = 0;
 
-
-std::cout<< "Success InsertEllipsoidPack."<< std::endl;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -133,8 +131,6 @@ std::cout<< "Success InsertEllipsoidPack."<< std::endl;
 FixInsertEllipsoidPack::~FixInsertEllipsoidPack()
 {
     if(idregion) delete []idregion;
-
-std::cout<< "Success ~InsertEllipsoidPack."<< std::endl;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -155,7 +151,6 @@ void FixInsertEllipsoidPack::init_defaults()
 
       warn_region = true;
 
-std::cout<< "Success init_defaults."<< std::endl;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -172,7 +167,6 @@ void FixInsertEllipsoidPack::init()
         ins_region = domain->regions[iregion];
     }
 
-std::cout<< "Success init."<< std::endl;
 }
 
 /* ----------------------------------------------------------------------
@@ -211,8 +205,7 @@ void FixInsertEllipsoidPack::calc_insertion_properties()
 
     if(n_defined != 1)
         error->fix_error(FLERR,this,"must define exactly one keyword out of 'volumefraction_region', 'particles_in_region', and 'mass_in_region'");
-
-std::cout<< "Success calc_insertion_properties."<< std::endl;
+   
 }
 
 /* ----------------------------------------------------------------------
@@ -225,9 +218,7 @@ void FixInsertEllipsoidPack::calc_region_volume_local()
 {
     ins_region->volume_mc(ntry_mc,all_in_flag==0?false:true,fix_distribution->max_r_bound(),
                           region_volume,region_volume_local);
-    
 
-std::cout<< "Success calc_region_volume_local."<< std::endl;
 }
 
 /* ----------------------------------------------------------------------
@@ -334,8 +325,6 @@ int FixInsertEllipsoidPack::calc_ninsert_this()
 
   return ninsert_this;
 
-
-std::cout<< "Success calc_ninsert_this."<< std::endl;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -348,7 +337,6 @@ double FixInsertEllipsoidPack::insertion_fraction()
 
     return region_volume_local/region_volume;
 
-std::cout<< "Success insertion_fraction."<< std::endl;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -367,8 +355,7 @@ inline int FixInsertEllipsoidPack::is_nearby(int i)
 
     if(ins_region->match_expandby_cut(pos,cut)) return 1;
     return 0;
-
-std::cout<< "Success is_nearby."<< std::endl;
+   
 }
 
 /* ----------------------------------------------------------------------
@@ -383,7 +370,6 @@ int FixInsertEllipsoidPack::calc_maxtry(int ninsert_this_local)
     if(insertion_ratio >= 1.) return ninsert_this_local * maxattempt;
     else return static_cast<int>( static_cast<double>(ninsert_this_local*maxattempt) / (1.-insertion_ratio));
 
-std::cout<< "Success calc_maxtry."<< std::endl;
 }
 
 /* ----------------------------------------------------------------------
@@ -514,8 +500,7 @@ void FixInsertEllipsoidPack::x_v_omega(int ninsert_this_local,int &ninserted_thi
             }
         }
     }
-
-std::cout<< "Success x_v_omega."<< std::endl;    
+  
 }
 
 /* ---------------------------------------------------------------------- */
@@ -526,5 +511,4 @@ void FixInsertEllipsoidPack::restart(char *buf)
 
     ins_region->reset_random(seed + SEED_OFFSET);
 
-std::cout<< "Success restart."<< std::endl;
 }
