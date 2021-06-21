@@ -1,4 +1,6 @@
 /* ----------------------------------------------------------------------
+   Adapted from LIGGGHTS v3.8.0 particle type Superquadric to type Ellipsoid for v3.1.0.
+   
    LIGGGHTS® - LAMMPS Improved for General Granular and Granular Heat
    Transfer Simulations
 
