@@ -454,8 +454,7 @@ int FixParticledistributionEllipsoid::insert(int n)
 {
     int ninserted_spheres_local = 0;
     for(int i = 0; i < n; i++)
-    {
-std::cout<< "Success ParticleDistributionEllip_insert loop."<< std::endl;         
+    {        
         ninserted_spheres_local += pti_list[i]->insert();
     }
     return ninserted_spheres_local;
