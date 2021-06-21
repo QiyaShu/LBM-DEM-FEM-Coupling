@@ -15,7 +15,8 @@
  *
  * Copyright 2014 Johannes Kepler University Linz
  *
- * Author: Philippe Seil (philippe.seil@jku.at)
+ * Original Author: Philippe Seil (philippe.seil@jku.at)
+ * Adapted by Qiya Shu (shu@wsa.rwth-aachen.de)
  */
 
 /*
@@ -115,36 +116,6 @@ namespace plb {
       MathExtra::mq_to_omega(angmom,q,inert0,ome);
 
 
-//This serves to output the particle states during the simulation.
-/*if (iS==0){
-pcout << "omega_z_LB-ph:" << units.getPhysFreq(ome[2]) << std::endl;
-T inert_ph0[6];
-T ome_ph[3];
-T s_ph[3] = {ellip->bonus[iS].shape[0],ellip->bonus[iS].shape[1],ellip->bonus[iS].shape[2]} ;
-T mass_ph = wrapper.lmp->atom->rmass[iS];
-T angmom_ph[3] = {wrapper.lmp->atom->angmom[iS][0],wrapper.lmp->atom->angmom[iS][1],wrapper.lmp->atom->angmom[iS][2]} ;
-
-pcout << "s_ph:" << s_ph[0] << std::endl;
-pcout << "s_ph:" << s_ph[1] << std::endl;
-pcout << "s_ph:" << s_ph[2] << std::endl;
-pcout << "q:" << q[0] << std::endl;
-pcout << "q:" << q[1] << std::endl;
-pcout << "q:" << q[2] << std::endl;
-pcout << "q:" << q[3] << std::endl;
-pcout << "mass_ph:" << mass_ph << std::endl;
-MathExtra::inertia_ellipsoid(s_ph,q0,mass_ph,inert_ph0);
-MathExtra::mq_to_omega(angmom_ph,q,inert_ph0,ome_ph);
-
-pcout << "inertia_ph_xx:" << inert_ph0[0] << std::endl;
-pcout << "inertia_ph_yy:" << inert_ph0[1] << std::endl;
-pcout << "inertia_ph_zz:" << inert_ph0[2] << std::endl;
-pcout << "omega_ph_x:" << ome_ph[0] << std::endl;
-pcout << "omega_ph_y:" << ome_ph[1] << std::endl;
-pcout << "omega_ph_z:" << ome_ph[2] << std::endl;
-std::ofstream oFile("statistic_omegaZ.csv",std::ofstream::app);
-oFile << "n LBsteps" << "," << ome_ph[2] << "\n";}   */  
-
-
         // use sphere center as center of mass for simple spheres
         sss  = new SetSingleEllipsoid3D<T,Descriptor>(x,v,ome,x,r,q,id,initVelFlag);
       
@@ -169,10 +140,6 @@ oFile << "n LBsteps" << "," << ome_ph[2] << "\n";}   */
     applyProcessingFunctional(new AttributeFunctional<T,Descriptor>(),lattice.getBoundingBox(),lattice);
 
   }
-
-
-
-
 
 
 
@@ -375,9 +342,6 @@ oFile << "n LBsteps" << "," << ome_ph[2] << "\n";}   */
     double **f_liggghts = couplingFix->get_force_ptr();
     double **t_liggghts = couplingFix->get_torque_ptr();
 
-//pcout << "before f_liggghts[0]: " << f_liggghts[0][0] << ", " << f_liggghts[0][1] << ", " << f_liggghts[0][2] << std::endl;
-//std::ofstream fFile("statistic_forces_xyz.csv",std::ofstream::app);
-//fFile << "before f_liggghts" << "," << f_liggghts[0][0] << "," << f_liggghts[0][1] << "," << f_liggghts[0][2] << "\n";
 
     for(plint iPart=0;iPart<nPart;iPart++){
       for(plint j=0;j<3;j++){
@@ -395,18 +359,8 @@ oFile << "n LBsteps" << "," << ome_ph[2] << "\n";}   */
         t_liggghts[liggghts_ind][j] += units.getPhysTorque(torque[3*iPart+j]);
       }
 
-
-if (iPart==0){
-pcout << "later f_liggghts[" << liggghts_ind << "]: " << f_liggghts[liggghts_ind][0] << ", " << f_liggghts[liggghts_ind][1] << ", " << f_liggghts[liggghts_ind][2] << std::endl;
-/*std::ofstream tFile("statistic_torqueZ.csv",std::ofstream::app);
-tFile << "n LBsteps" << "," << t_liggghts[liggghts_ind][2] << "\n";*/
-//std::ofstream fFile("statistic_forces_xyz.csv",std::ofstream::app);
-//fFile << "later f_liggghts" << "," << f_liggghts[liggghts_ind][0] << "," << f_liggghts[liggghts_ind][1] << "," << f_liggghts[liggghts_ind][2] << "\n";
-} 
-/*for(plint j=0;j<3;j++){
-f_liggghts[liggghts_ind][j] = 0; // to ignore transnational movements of the particle driven by fluid, if f_liggghts set to 0.
-}  */
-//for(plint j=0;j<2;j++) t_liggghts[liggghts_ind][j] = 0; // to ignore the rotational movements of the particle, if q_liggghts set to 0.
+//for(plint j=0;j<3;j++) f_liggghts[liggghts_ind][j] = 0; // to ignore transnational movements of the particle driven by fluid, if f_liggghts are set to 0.
+//for(plint j=0;j<2;j++) t_liggghts[liggghts_ind][j] = 0; // to ignore the rotational movements of the particle, if t_liggghts are set to 0.
 
     }   
     couplingFix->comm_force_torque();
