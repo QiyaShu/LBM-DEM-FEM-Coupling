@@ -421,8 +421,7 @@ namespace plb{
           if(dz > nz/2) dz -= nz;
           else if(dz < -nz/2) dz += nz;*/
 	           
-          T const forceX = particleData->hydrodynamicForce[0]; //-dpdx_LB if body force on the fluid is used, it should be eliminated for the particle
-//pcout << "cell " << iX << ", " << iY << ", " << iZ << ", iPart " << ind << ", forceX: " << forceX << std::endl;
+          T const forceX = particleData->hydrodynamicForce[0];
           T const forceY = particleData->hydrodynamicForce[1];
           T const forceZ = particleData->hydrodynamicForce[2];
           
