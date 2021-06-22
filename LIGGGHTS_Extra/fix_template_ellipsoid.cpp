@@ -354,7 +354,7 @@ void FixTemplateEllipsoid::randomize_single()
     pti->density_ins = rand(pdf_density,random);
 
     // calculate volume and mass
-    pti->volume_ins = (shape[0]/2.) * (shape[1]/2.) * (shape[2]/2.) * 4.*M_PI/3.;
+    pti->volume_ins = shape[0] * shape[1] * shape[2] * 4.*M_PI/3.;
     pti->mass_ins = pti->density_ins*pti->volume_ins;
 
     // init insertion position
@@ -416,7 +416,7 @@ void FixTemplateEllipsoid::randomize_ptilist(int n_random,int distribution_group
         pti_list[i]->density_ins = rand(pdf_density,random);
 
         // calculate volume and mass
-        pti_list[i]->volume_ins = shape[0]/2. * shape[1]/2. * shape[2]/2. * 4.*M_PI/3.;
+        pti_list[i]->volume_ins = shape[0] * shape[1] * shape[2] * 4.*M_PI/3.;
         pti_list[i]->mass_ins = pti_list[i]->density_ins*pti_list[i]->volume_ins;
 
         // init insertion position
