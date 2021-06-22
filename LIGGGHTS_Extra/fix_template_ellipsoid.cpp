@@ -289,7 +289,7 @@ FixTemplateEllipsoid::FixTemplateEllipsoid(LAMMPS *lmp, int narg, char **arg) :
   if(pdf_shapez == NULL) error->fix_error(FLERR,this,"have to define 'shapez'");
 
   // set mass and volume expectancy
-  volume_expect = (expectancy(pdf_shapex)/2.)*(expectancy(pdf_shapey)/2.)*(expectancy(pdf_shapez)/2.)*4.*M_PI/3.;
+  volume_expect = expectancy(pdf_shapex)*expectancy(pdf_shapey)*expectancy(pdf_shapez)*4.*M_PI/3.;
   mass_expect = expectancy(pdf_density) * volume_expect;
 
 
