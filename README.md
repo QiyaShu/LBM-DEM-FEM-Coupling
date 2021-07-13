@@ -33,7 +33,7 @@ It's built based on following open-sorce codes:
     - projectFiles = (showcase).cpp ${LBDEM_ROOT}/src/liggghtsCouplingWrapper.cpp ${LBDEM_ROOT}/src/latticeDecomposition.cpp
     - libraryPaths = ${LIGGGHTS_ROOT}/src ${LBDEM_ROOT}/examples/ShearFlow /home/osboxes/matlab/v98/runtime/glnxa64 /home/osboxes/matlab/v98/bin/glnxa64
     - includePaths = ${LBDEM_ROOT}/src ${LIGGGHTS_ROOT}/src /home/osboxes/matlab/v98/extern/include
-    - libraries    = liblammps.so libtestFunc.so libmwmclmcrrt.so libmwmclmcr.so
+    - libraries    = liblammps.so libMatlabFE.so libmwmclmcrrt.so libmwmclmcr.so
 
 ## Run the simulation
 1. go to the showcase folder;
