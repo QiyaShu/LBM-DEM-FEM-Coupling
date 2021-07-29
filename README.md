@@ -27,7 +27,7 @@ It's built based on following open-sorce codes:
     - export PALABOS_ROOT=path/to/palabos/
     - export LIGGGHTS_ROOT=path/to/liggghts/
     - export LBDEM_ROOT=path/to/lbdem/
-    - export LD_LIBRARY_PATH=path/to/liggghts/src/:path/to/the/simulating/case(because MatlabLibrary xxx.so and xxx.h is put in the folder):path/to/matlab/v98/runtime/glnxa64:path/to/matlab/v98/bin/glnxa64:path/to/matlab/v98/extern/bin/glnxa64:path/to/matlab/v98/sys/os/glnxa64:path/to/v98/sys/opengl/lib/glnxa64
+    - export LD_LIBRARY_PATH=path/to/liggghts/src/:path/to/matlab/v98/runtime/glnxa64:path/to/matlab/v98/bin/glnxa64:path/to/matlab/v98/extern/bin/glnxa64:path/to/matlab/v98/sys/os/glnxa64:path/to/v98/sys/opengl/lib/glnxa64
     - source ~/.bashrc;
 6. edit Makefile of each showcase:
     - projectFiles = (showcase).cpp ${LBDEM_ROOT}/src/liggghtsCouplingWrapper.cpp ${LBDEM_ROOT}/src/latticeDecomposition.cpp
