@@ -18,7 +18,7 @@ It's built based on following open-sorce codes:
     - make makeshlib (update makefile.shlib file, what will be used to build the shared library);
     - make -f Makefile.shlib fedora_fpic (create shared library lammps.so);
 3. install LBDEMCoupling:
-    - git clone (this repository);
+    - git clone (LB-DEM_Coupling repository);
     - move the files "fix_lb_coupling_onetoone.cpp" and "fix_lb_coupling_onetoone.h" to your LIGGGHTS/src;
     - rebuild the LIGGGHTS library according to the step above;
 4. install Matlab Runtime (same version as required by MatlabLibrary readme);
