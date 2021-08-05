@@ -7,7 +7,7 @@
 
 /*
  * This example consists of a cubic domain that is filled with 
- * a non-spherical particles. Periodic boundary conditions are applied. 
+ * a single spherical particle. Periodic boundary conditions are applied. 
  * The particles rotates in the center under shear.
  * Heat flux by a certain temperature difference is computed.
  */
@@ -113,7 +113,6 @@ void writetopbotheatflux (TemperatureBlockLatticeT& Temperature_lattice,
 	bottomfluxoutfile.close();
 
 	pcout<<"writing the heat flux data" << std::endl;
-
  }
 
 
@@ -152,8 +151,6 @@ T TrilinearInterpolation(TemperatureBlockLatticeT& TempLattice, Array<T,3> Outer
 	T c7 = T111-T011-T101-T110+T100+T001+T010-T000;
 
 	OuterVerticesTemperature = c0+c1*dx+c2*dy+c3*dz+c4*dx*dy+c5*dy*dz+c6*dz*dx+c7*dx*dy*dz;
-
-//pcout << "OuterVerticesTemperature: " << OuterVerticesTemperature << std::endl; 
 
 	return OuterVerticesTemperature;
 }
@@ -268,15 +265,12 @@ int main(int argc, char* argv[]) {
 
 	const plint maxSteps = ceil(t_total/dt_phys);
 	const plint vtkSteps = 1000;
-	//const plint gifSteps = 10;
-	//const plint logSteps = 10;
  	int ibIter = 5; // Iterations for the immersed boundary method.	
 
 	//temperatur parameters setting 
 	T Prandtl = nu_f/(k_f/(rho_f*cp_f));
 	T LatticeDiff_O = parameters.getLatticeNu() /Prandtl;
 	T LatticeDiff = (nu_f*units.getLbLength(1)*units.getLbLength(1)/units.getLbTime(1)) /Prandtl;
-
 
 	T omega_temperature = (T) 1 / (TEMPERATURE_DESCRIPTOR<T>::invCs2 * LatticeDiff + (T) 0.5); //Relaxation parameter for the temperature
 	
@@ -365,9 +359,9 @@ int main(int argc, char* argv[]) {
 	boundaryCondition->setVelocityConditionOnBlockBoundaries(*lattice, topLid,      boundary::dirichlet);
 
 	T u = units.getLbVel(shear*L/2);//parameters.getLatticeU()*parameters.getNy()/parameters.getResolution()/2; 
-	//initializeAtEquilibrium(*lattice, everythingButLid, (T) 1000., Array<T,3>((T)0.,(T)0.,(T)0.) );
-	//initializeAtEquilibrium(*lattice, topLid, (T) 1000., Array<T,3>(u,(T)0.,(T)0.) );
-	//initializeAtEquilibrium(*lattice, bottomLid, (T) 1000., Array<T,3>(-u,(T)0.,(T)0.) );
+	//initializeAtEquilibrium(*lattice, everythingButLid, units.getLbDensity(rho_f), Array<T,3>((T)0.,(T)0.,(T)0.) );
+	//initializeAtEquilibrium(*lattice, topLid, units.getLbDensity(rho_f), Array<T,3>(u,(T)0.,(T)0.) );
+	//initializeAtEquilibrium(*lattice, bottomLid, units.getLbDensity(rho_f), Array<T,3>(-u,(T)0.,(T)0.) );
 	initializeAtEquilibrium(*lattice, lattice->getBoundingBox(), iniVelocityFunc(units.getLbDensity(rho_f),u,parameters));
 	setBoundaryVelocity(*lattice, topLid, Array<T,3>(u,(T)0.,(T)0.) );
 	setBoundaryVelocity(*lattice, bottomLid, Array<T,3>(-u,(T)0.,(T)0.) );
@@ -528,7 +522,6 @@ int main(int argc, char* argv[]) {
                                          ellip -> bonus[0].quat[2]/sin(theta/2),
                                          ellip -> bonus[0].quat[3]/sin(theta/2)};
 
-
 		Array<T,3> position={wrapper.lmp->atom->x[0][0],wrapper.lmp->atom->x[0][1],wrapper.lmp->atom->x[0][2]};
 
 		TriangleSet<T> SphereMesh = TriangleSet<T>("sphereSurface.stl", (T) 1e-6);
@@ -567,18 +560,10 @@ int main(int argc, char* argv[]) {
 			VertexNormal.push_back(MeshDef->getMesh().computeVertexNormal(iVertex, true));
 						
 			OuterVertices.push_back(vertices.back() + 2.25*VertexNormal.back()); 
-/*pcout << "SurfaceVertices(";
-for (int i=0; i < 3; i++) pcout << vertices.back()[i] << ',';
-pcout << ") + VertexNormal(";
-for (int i=0; i < 3; i++) pcout << VertexNormal.back()[i] << ',';
-pcout << ") = OuterVertices(";
-for (int i=0; i < 3; i++) pcout << OuterVertices.back()[i] << ',';
-pcout << ")" << std::endl;*/
 			//effective thickness 1.25*DeltaX + 1*DeltaX for the first-order one-sided difference approximations (Suzuki2016)
 
 			T OuterVerticesTemperature = TrilinearInterpolation(Temperature_lattice, OuterVertices.back());
-			HeatFlux[iVertex] = (OuterVerticesTemperature-SurfaceTemperature[iVertex]) / units.getPhysLength(1) * k_f; //positive value if with the direction inwards
-//pcout << "HeatFlux["<<iVertex<<"]:" << HeatFlux[iVertex] << std::endl;			
+			HeatFlux[iVertex] = (OuterVerticesTemperature-SurfaceTemperature[iVertex]) / units.getPhysLength(1) * k_f; //positive value if with the direction inwards		
 		}
 		delete MeshDef;
 
