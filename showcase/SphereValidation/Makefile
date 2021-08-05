@@ -1,5 +1,5 @@
 ##########################################################################
-## Makefile for the LBDEMcoupling example program showcaseRectChannel
+## Makefile for the LBM-DEM-FEM coupling example program showcase SphereValidation
 ##
 ## The present Makefile is a pure configuration file, in which
 ## you can select compilation options. Compilation dependencies
