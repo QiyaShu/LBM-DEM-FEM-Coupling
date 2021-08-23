@@ -35,7 +35,7 @@ SMPparallel  = false
 usePOSIX     = true
 
 # Path to external libraries (other than Palabos)
-libraryPaths = ${LIGGGHTS_ROOT}/src ${LBDEM_ROOT}/examples/LBM-DEM /home/osboxes/matlab/v98/runtime/glnxa64 /home/osboxes/matlab/v98/bin/glnxa64
+libraryPaths = ${LIGGGHTS_ROOT}/src ${LBDEM_ROOT}/showcase/SphereValidation /home/osboxes/matlab/v98/runtime/glnxa64 /home/osboxes/matlab/v98/bin/glnxa64
 # Path to include directories (other than Palabos)
 includePaths = ${LBDEM_ROOT}/src ${LIGGGHTS_ROOT}/src /home/osboxes/matlab/v98/extern/include
 # Dynamic and static libraries (other than Palabos)
