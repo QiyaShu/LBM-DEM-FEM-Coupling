@@ -110,9 +110,9 @@ namespace plb{
               setValues(*particleData,sf,dx_com,dy_com,dz_com);
             break; // else do nothing
           }
-          // if desired, initialize interior of sphere with sphere velocity
+          // if desired, initialize interior of ellipsoid with ellipsoid velocity
           if(initVelFlag && sf > SOLFRAC_MAX)
-            cell.defineVelocity(particleData->uPart);// but this would lead to an increasing force to infinity
+            cell.defineVelocity(particleData->uPart);
 
         }
       }
