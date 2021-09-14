@@ -495,7 +495,7 @@ int main(int argc, char* argv[]) {
 
 		//static bool initWithVel = true;
 		//setSpheresOnLattice(*lattice,wrapper,units,false);
-		setEllipsoidOnLattice(*lattice,wrapper,units,false);
+		setEllipsoidOnLattice(*lattice,wrapper,units,true);
 		//if(initWithVel) initWithVel = false;
 
 		if(iT%vtkSteps == 0 && iT > 0) { // LIGGGHTS does not write at timestep 0
