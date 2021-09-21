@@ -269,7 +269,7 @@ int main(int argc, char* argv[]) {
 
 	//temperatur parameters setting 
 	T Prandtl = nu_f/(k_f/(rho_f*cp_f));
-	T LatticeDiff_O = parameters.getLatticeNu() /Prandtl;
+	//T LatticeDiff_O = parameters.getLatticeNu() /Prandtl;
 	T LatticeDiff = (nu_f*units.getLbLength(1)*units.getLbLength(1)/units.getLbTime(1)) /Prandtl;
 
 	T omega_temperature = (T) 1 / (TEMPERATURE_DESCRIPTOR<T>::invCs2 * LatticeDiff + (T) 0.5); //Relaxation parameter for the temperature
