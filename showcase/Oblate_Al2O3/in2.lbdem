@@ -1,0 +1,15 @@
+
+timestep        ${t_step}      
+
+
+compute	     q all property/atom quatw quati quatj quatk
+
+# particle dump
+variable dmp_fname string ${dmp_dir}d_*.dump # .vtk
+
+dump	1 all custom ${dmp_stp} ${dmp_fname} &
+  	id type mass x y z angmomx angmomy angmomz tqx tqy tqz c_q[1] c_q[2] c_q[3] c_q[4]
+
+# dump		dmp all custom ${dmp_stp} ${dmp_fname} & 
+# 		id type type x y z ix iy iz vx vy vz fx fy fz omegax omegay omegaz radius 	
+	

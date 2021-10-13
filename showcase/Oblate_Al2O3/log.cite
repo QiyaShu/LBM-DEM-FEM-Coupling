@@ -1,0 +1,15 @@
+This LAMMPS simulation made specific use of work described in the
+following references.  See http://lammps.sandia.gov/cite.html
+for details.
+
+pair gayberne command:
+
+@Article{Brown09,
+ author =  {W. M. Brown, M. K. Petersen, S. J. Plimpton, and G. S. Grest},
+ title =   {Liquid crystal nanodroplets in solution},
+ journal = {J.~Chem.~Phys.},
+ year =    2009,
+ volume =  130,
+ pages =   {044901}
+}
+
