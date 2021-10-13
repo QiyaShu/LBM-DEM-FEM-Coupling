@@ -259,7 +259,7 @@ int main(int argc, char* argv[]) {
 
 	// this is equivalent to the variable command in LIGGGHTS/LAMMPS
 	double r[3] = {d0/2, d0/4, d0/2};
-	double k[3] = {k_s, k_s, k_s};//thermal conduction in different directions
+	//double k[3] = {k_s, k_s, k_s};//thermal conduction in different directions
 
 	PhysUnits3D<T> units(d0,u0,nu_f,lx,ly,lz,N,u0_LB,rho_f);
 
@@ -567,19 +567,10 @@ int main(int argc, char* argv[]) {
 			VertexNormal.push_back(MeshDef->getMesh().computeVertexNormal(iVertex, true));
 						
 			OuterVertices.push_back(vertices.back() + 2.25*VertexNormal.back()); 
-/*pcout << "SurfaceVertices(";
-for (int i=0; i < 3; i++) pcout << vertices.back()[i] << ',';
-pcout << ") + VertexNormal(";
-for (int i=0; i < 3; i++) pcout << VertexNormal.back()[i] << ',';
-pcout << ") = OuterVertices(";
-for (int i=0; i < 3; i++) pcout << OuterVertices.back()[i] << ',';
-pcout << ")" << std::endl;*/
 			//effective thickness 1.25*DeltaX + 1*DeltaX for the first-order one-sided difference approximations (Suzuki2016)
 
 			T OuterVerticesTemperature = TrilinearInterpolation(Temperature_lattice, OuterVertices.back());
-			HeatFlux[iVertex] = (OuterVerticesTemperature-SurfaceTemperature[iVertex]) / units.getPhysLength(1) * k_f; //positive value if with the direction inwards
-			//HeatFlux[iVertex] = 0;
-//pcout << "HeatFlux["<<iVertex<<"]:" << HeatFlux[iVertex] << std::endl;			
+			HeatFlux[iVertex] = (OuterVerticesTemperature-SurfaceTemperature[iVertex]) / units.getPhysLength(1) * k_f; //positive value if with the direction inwards			
 		}
 		delete MeshDef;
 
