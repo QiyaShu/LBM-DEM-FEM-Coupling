@@ -164,7 +164,7 @@ public:
     T operator()(plint const& globalVertexIds)
     {
         T temperature;
-	temperature = t.Get(globalVertexIds,1);
+	temperature = t.Get(1,globalVertexIds+1); //"globalVertexIds" ranges 0~(N-1), but "mwArray SurfaceTemperatures" ranges 1~N.
 
         return temperature;
     }
@@ -563,7 +563,7 @@ int main(int argc, char* argv[]) {
 			//effective thickness 1.25*DeltaX + 1*DeltaX for the first-order one-sided difference approximations (Suzuki2016)
 
 			T OuterVerticesTemperature = TrilinearInterpolation(Temperature_lattice, OuterVertices.back());
-			HeatFlux[iVertex] = (OuterVerticesTemperature-SurfaceTemperature[iVertex]) / units.getPhysLength(1) * k_f; //positive value if with the direction inwards		
+			HeatFlux[iVertex] = (OuterVerticesTemperature-SurfaceTemperature[iVertex]) / (2.25*units.getPhysLength(1)) * k_f; //positive value if with the direction inwards		
 		}
 		delete MeshDef;
 
