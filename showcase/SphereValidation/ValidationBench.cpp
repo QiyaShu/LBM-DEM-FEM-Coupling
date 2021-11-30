@@ -494,8 +494,8 @@ int main(int argc, char* argv[]) {
 	for (plint iT=0; iT<=maxSteps; ++iT) {
 
 		//static bool initWithVel = true;
-		//setSpheresOnLattice(*lattice,wrapper,units,false);
-		setEllipsoidOnLattice(*lattice,wrapper,units,true);
+		//setSpheresOnLattice(*lattice,wrapper,units,false); //if set initialize fluid velocity inside particle as "false", programm can somehow collapse after some time.
+		setEllipsoidOnLattice(*lattice,wrapper,units,true); //if set initialize fluid velocity inside particle as "false", no more sudden collapse, but rotational velocity would fluctuate a little, which has barely no influence on the convective heat transfer.
 		//if(initWithVel) initWithVel = false;
 
 		if(iT%vtkSteps == 0 && iT > 0) { // LIGGGHTS does not write at timestep 0
@@ -529,6 +529,7 @@ int main(int argc, char* argv[]) {
 		std::vector<Array<T,3> > VertexNormal;
 		std::vector<T> areas; 
 		std::vector<Array<T,3> > OuterVertices;
+		std::vector<Array<T,3> > InnerVertices;
 		std::vector<T> HeatFlux(heatflux.NumberOfElements());
 
 		SphereMesh.scale(r[0],r[1],r[2]);
@@ -561,9 +562,11 @@ int main(int argc, char* argv[]) {
 						
 			OuterVertices.push_back(vertices.back() + 2.25*VertexNormal.back()); 
 			//effective thickness 1.25*DeltaX + 1*DeltaX for the first-order one-sided difference approximations (Suzuki2016)
+			InnerVertices.push_back(vertices.back() + 1.25*VertexNormal.back());
 
 			T OuterVerticesTemperature = TrilinearInterpolation(Temperature_lattice, OuterVertices.back());
-			HeatFlux[iVertex] = (OuterVerticesTemperature-SurfaceTemperature[iVertex]) / (2.25*units.getPhysLength(1)) * k_f; //positive value if with the direction inwards		
+			T InnerVerticesTemperature = TrilinearInterpolation(Temperature_lattice, InnerVertices.back());
+			HeatFlux[iVertex] = (OuterVerticesTemperature-InnerVerticesTemperature) / units.getPhysLength(1) * k_f; //positive value if with the direction inwards		
 		}
 		delete MeshDef;
 
