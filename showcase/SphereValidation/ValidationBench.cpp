@@ -494,8 +494,8 @@ int main(int argc, char* argv[]) {
 	for (plint iT=0; iT<=maxSteps; ++iT) {
 
 		//static bool initWithVel = true;
-		//setSpheresOnLattice(*lattice,wrapper,units,false); //if set initialize fluid velocity inside particle as "false", programm can somehow collapse after some time.
-		setEllipsoidOnLattice(*lattice,wrapper,units,true); //if set initialize fluid velocity inside particle as "false", no more sudden collapse, but rotational velocity would fluctuate a little, which has barely no influence on the convective heat transfer.
+		//setSpheresOnLattice(*lattice,wrapper,units,false); //if set initializing fluid velocity inside particle as "false", programm can somehow collapse after some time.
+		setEllipsoidOnLattice(*lattice,wrapper,units,true); //if set initializing fluid velocity inside particle as "true", no more sudden collapse, but rotational velocity would fluctuate a little, which has barely no influence on the convective heat transfer.
 		//if(initWithVel) initWithVel = false;
 
 		if(iT%vtkSteps == 0 && iT > 0) { // LIGGGHTS does not write at timestep 0
