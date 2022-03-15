@@ -531,7 +531,7 @@ int main(int argc, char* argv[]) {
 
 		Array<T,3> position={wrapper.lmp->atom->x[0][0],wrapper.lmp->atom->x[0][1],wrapper.lmp->atom->x[0][2]};
 
-		TriangleSet<T> OblateMesh = TriangleSet<T>("symmetricSphereSurface.stl", (T) 1e-6);
+		TriangleSet<T> OblateMesh = TriangleSet<T>("symmetricSphereSurface.stl", (T) 1e-7); //presicion must be small enough that no area would be treated as zero
 		std::vector<Array<T,3> > vertices;
 		std::vector<Array<T,3> > VertexNormal;
 		std::vector<T> areas; 
