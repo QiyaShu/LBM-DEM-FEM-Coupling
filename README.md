@@ -10,7 +10,7 @@ It's built based on following open-sorce codes:
 ## Installation
 1. install Palabos;
     - git clone https://gitlab.com/unigespc/palabos.git;
-    - copy the palabos changed codes into src/offLatice folder;
+    - copy the codes in palabos_changed_code into src\complexDynamics folder;
 2. install LIGGGHTS:
     - git clone https://github.com/CFDEMproject/LIGGGHTS-PUBLIC.git;
     - git checkout b3030a8 (to get the old version v3.1.0);
