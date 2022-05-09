@@ -9,6 +9,8 @@ It's built based on following open-sorce codes:
 
 ## Installation
 1. install Palabos;
+    - git clone https://gitlab.com/unigespc/palabos.git;
+    - copy the palabos changed codes into src/offLatice folder;
 2. install LIGGGHTS:
     - git clone https://github.com/CFDEMproject/LIGGGHTS-PUBLIC.git;
     - git checkout b3030a8 (to get the old version v3.1.0);
@@ -37,5 +39,5 @@ It's built based on following open-sorce codes:
 
 ## Run the simulation
 1. go to the showcase folder;
-2. command "make" to compile the excutable file xxx.o;
+2. command "make" to compile the object file xxx.o;
 3. excute the simulation with "./xxx".
