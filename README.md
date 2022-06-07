@@ -10,11 +10,12 @@ It's built based on following open-sorce codes:
 ## Installation
 1. install Palabos;
     - git clone https://gitlab.com/unigespc/palabos.git;
+    - git checkout d1cfe102 (to get the old version v2.1r0, new version deleted scons compiler);
     - copy the codes in palabos_changed_code into src\complexDynamics folder;
 2. install LIGGGHTS:
     - git clone https://github.com/CFDEMproject/LIGGGHTS-PUBLIC.git;
     - git checkout b3030a8 (to get the old version v3.1.0);
-    - make yes-ASPHERE yes-RIGID (insert necessary packages, and copy necessary files from lammps/src);
+    - make yes-ASPHERE yes-RIGID yes-SRD (insert necessary packages, and copy necessary files from lammps/src);
     - copy files in the LIGGGHTS_Extra folder to LIGGGHTS-PUBLIC/src (these enable inserting pack of ellipsoids);
     - (make fedora; mpirun lmp_fedora < in.ellipsoid; run an example to see whether LIGGGHTS works well);
     - make makeshlib (update makefile.shlib file, what will be used to build the shared library);
@@ -29,12 +30,12 @@ It's built based on following open-sorce codes:
     - export PALABOS_ROOT=path/to/palabos/
     - export LIGGGHTS_ROOT=path/to/liggghts/
     - export LBDEM_ROOT=path/to/lbdem/
-    - export LD_LIBRARY_PATH=path/to/liggghts/src/:path/to/matlab/v98/runtime/glnxa64:path/to/matlab/v98/bin/glnxa64:path/to/matlab/v98/extern/bin/glnxa64:path/to/matlab/v98/sys/os/glnxa64:path/to/v98/sys/opengl/lib/glnxa64
+    - export LD_LIBRARY_PATH=path/to/liggghts/src/:path/to/matlab/version/runtime/glnxa64:path/to/matlab/version/bin/glnxa64:path/to/matlab/version/extern/bin/glnxa64:path/to/matlab/version/sys/os/glnxa64:path/to/version/sys/opengl/lib/glnxa64
     - source ~/.bashrc;
 6. edit Makefile of each showcase:
     - projectFiles = (showcase).cpp ${LBDEM_ROOT}/src/liggghtsCouplingWrapper.cpp ${LBDEM_ROOT}/src/latticeDecomposition.cpp
-    - libraryPaths = ${LIGGGHTS_ROOT}/src ${LBDEM_ROOT}/examples/(showcase) /home/osboxes/matlab/v98/runtime/glnxa64 /home/osboxes/matlab/v98/bin/glnxa64
-    - includePaths = ${LBDEM_ROOT}/src ${LIGGGHTS_ROOT}/src /home/osboxes/matlab/v98/extern/include
+    - libraryPaths = ${LIGGGHTS_ROOT}/src /path/to/showcase(for specific libMatlabFE.so) /path/to/matlab/version/runtime/glnxa64 /path/to/matlab/version/bin/glnxa64
+    - includePaths = ${LBDEM_ROOT}/src ${LIGGGHTS_ROOT}/src /path/to/matlab/version/extern/include
     - libraries    = liblammps.so libMatlabFE.so libmwmclmcrrt.so libmwmclmcr.so
 
 ## Run the simulation
