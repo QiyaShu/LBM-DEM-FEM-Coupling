@@ -35,9 +35,9 @@ SMPparallel  = false
 usePOSIX     = true
 
 # Path to external libraries (other than Palabos)
-libraryPaths = ${LIGGGHTS_ROOT}/src ${LBDEM_ROOT}/examples/LBM-DEM-FE_oblate /home/osboxes/matlab/v98/runtime/glnxa64 /home/osboxes/matlab/v98/bin/glnxa64
+libraryPaths = ${LIGGGHTS_ROOT}/src /path/to/showcase/Oblate /path/to/matlab/version/runtime/glnxa64 /path/to/matlab/version/bin/glnxa64
 # Path to include directories (other than Palabos)
-includePaths = ${LBDEM_ROOT}/src ${LIGGGHTS_ROOT}/src /home/osboxes/matlab/v98/extern/include
+includePaths = ${LBDEM_ROOT}/src ${LIGGGHTS_ROOT}/src /path/to/matlab/version/extern/include
 # Dynamic and static libraries (other than Palabos)
 #libraries    = liblmp_fedora_debug.a
 libraries    = liblammps.so libMatlabFE.so libmwmclmcrrt.so libmwmclmcr.so
