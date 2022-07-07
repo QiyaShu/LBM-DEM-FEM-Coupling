@@ -80,9 +80,9 @@ namespace plb {
       if(excludeFlag) continue;
 
       T x[3],v[3],ome[3],angmom[3];
-      T inert0[6];// 6-dimensional Voigt notation (xx,yy,zz,yz,xz,xy)
+      //T inert0[6];// 6-dimensional Voigt notation (xx,yy,zz,yz,xz,xy)
       T r[3]; //radius of the shape
-      T q0[4]={0.7071068,0,0,0.7071068};
+      //T q0[4]={0.7071068,0,0,0.7071068};
       T q[4]; //quat
       plint id = wrapper.lmp->atom->tag[iS];
 
@@ -112,8 +112,12 @@ namespace plb {
 
 
       T mass = units.getLbMass(wrapper.lmp->atom->rmass[iS]);
-      MathExtra::inertia_ellipsoid(r,q0,mass,inert0);
-      MathExtra::mq_to_omega(angmom,q,inert0,ome);
+      //MathExtra::inertia_ellipsoid(r,q0,mass,inert0);
+      double idiag[3];
+      idiag[0] = 0.2*mass * (r[1]*r[1] + r[2]*r[2]);
+      idiag[1] = 0.2*mass * (r[0]*r[0] + r[2]*r[2]);
+      idiag[2] = 0.2*mass * (r[0]*r[0] + r[1]*r[1]);
+      MathExtra::mq_to_omega(angmom,q,idiag,ome);
 
 
         // use sphere center as center of mass for simple spheres
