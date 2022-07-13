@@ -104,10 +104,10 @@ namespace plb {
 
 
       for(plint i=0;i<3;i++){
-	r[i] = units.getLbLength(ellip->bonus[iS].shape[i]);
+	r[i] = units.getLbLength(ellip->bonus[wrapper.lmp->atom->ellipsoid[iS]].shape[i]);
       }
       for(plint i=0;i<4;i++){
-	q[i] = ellip->bonus[iS].quat[i];
+	q[i] = ellip->bonus[wrapper.lmp->atom->ellipsoid[iS]].quat[i];
       }
 
 
