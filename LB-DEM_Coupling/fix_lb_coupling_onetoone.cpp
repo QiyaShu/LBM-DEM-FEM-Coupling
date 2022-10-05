@@ -130,10 +130,9 @@ namespace LAMMPS_NS {
   void FixLbCouplingOnetoone::post_force(int)
   {
     double **f_ext = fix_dragforce_->array_atom;
-    //double **t_ext = fix_hdtorque_->array_atom;
     double **t_ext = fix_hdtorque_->array_atom;
     double **f = atom->f;
-    //double **t = atom->torque;
+    double **t = atom->torque;
 
     // for(int i=0;i<atom->nlocal;i++)
     //   std::cout << comm->me << " force_liggghts "
@@ -147,7 +146,7 @@ namespace LAMMPS_NS {
     // for(int i=0;i<atom->nlocal;i++)
     //   std::cout << comm->me << " force_liggghts_after "
     //             << std::setprecision(12) << f_ext[i][2] << " x " << atom->x[0][2] << std::endl;
-    double **t = atom->torque;
+    //double **t = atom->torque;
 
     for(int i=0;i<atom->nlocal;i++){
       f[i][0] += f_ext[i][0];
