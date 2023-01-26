@@ -234,9 +234,6 @@ T TrilinearInterpolation(TemperatureBlockLatticeT& TempLattice, Array<T,3> Outer
 	T dy = OuterVertices[1]-(int)OuterVertices[1];
 	T dz = OuterVertices[2]-(int)OuterVertices[2];
 
-//pcout << "OuterVertices: " << OuterVertices[0]<< ", " << OuterVertices[1] << ", " << OuterVertices[2]  << std::endl; 
-
-
         Cell<T,TEMPERATURE_DESCRIPTOR> const& cell000 = TempLattice->get((int)OuterVertices[0],(int)OuterVertices[1],(int)OuterVertices[2]);
         T T000 = cell000.getDynamics().computeDensity(cell000);
         Cell<T,TEMPERATURE_DESCRIPTOR> const& cell001 = TempLattice->get((int)OuterVertices[0],(int)OuterVertices[1],(int)OuterVertices[2]+1);
@@ -265,7 +262,6 @@ T TrilinearInterpolation(TemperatureBlockLatticeT& TempLattice, Array<T,3> Outer
 
 	OuterVerticesTemperature = c0+c1*dx+c2*dy+c3*dz+c4*dx*dy+c5*dy*dz+c6*dz*dx+c7*dx*dy*dz;
 
-
 	return OuterVerticesTemperature;
 }
 
@@ -285,48 +281,6 @@ public:
 private:
     mwArray t;
 };
-
-
-
-/*template <typename T>
-class PoiseuilleDensityAndVelocity {
-public:
-    PoiseuilleDensityAndVelocity(IncomprFlowParam<T> const& parameters_, T uMax_)
-        : parameters(parameters_),
-          uMax(uMax_),
-	  R((parameters.getNy()-1)/2)
-    { }
-    void operator()(plint iX, plint iY, plint iZ, T &rho, Array<T,3>& u) const {
-        rho = (T)1;
-        u[0] = uMax*(1-(((T)iY-R)*((T)iY-R)+((T)iZ-R)*((T)iZ-R))/R/R);
-        u[1] = 0.;
-        u[2] = 0.;
-    }
-private:
-    IncomprFlowParam<T> parameters;
-    T uMax;
-    T R;
-};
-
-template <typename T>
-class PoiseuilleVelocity {
-public:
-    PoiseuilleVelocity(IncomprFlowParam<T> const& parameters_, T uMax_)
-        : parameters(parameters_),
-          uMax(uMax_),
-	  R((parameters.getNy()-1)/2)
-    { }
-    void operator()(plint iX, plint iY, plint iZ, Array<T,3>& u) const  {
-        u[0] = uMax*(1-(((T)iY-R)*((T)iY-R)+((T)iZ-R)*((T)iZ-R))/R/R);
-        u[1] = 0.;
-        u[2] = 0.;
-    }
-private:
-    IncomprFlowParam<T> parameters;
-    T uMax;
-    T R;
-};*/
-
 
 
 
@@ -360,8 +314,8 @@ int main(int argc, char* argv[]) {
 
 	T L = 4e-4; //duct width
 	const T lx = 2*L, ly = L, lz = L;
-	T d0 = 1e-4; //particle diameter
-	T N = 100; //resolution
+	T d0 = 5e-5; //particle diameter
+	T N = 150; //resolution
 
 	T dp = 6.44; //pressure difference Pa
 	T u0 = (dp/lx)*L*L*0.421731044868524/(12*nu_f*rho_f); //average velocity
@@ -373,7 +327,7 @@ int main(int argc, char* argv[]) {
 	
 	T t_0 = lx/u0; // reference time
 	T dt_phys = t_0 * dt;
-        T t_total = 1; // total simulated physical time space
+        T t_total = 10; // total simulated physical time space
 
 	// this is equivalent to the variable command in LIGGGHTS/LAMMPS
 	double r[3] = {d0/2, d0/4, d0/2};
@@ -436,10 +390,6 @@ pcout << "dp/dx_LB: " << dpdx_LB << std::endl;
  */
 
 	T omega = parameters.getOmega();
-	/*T deltaRho = units.getLbRho(dp); //pressure difference in lattice units
-	T rhoHi = 1., rhoLo = 1.-deltaRho;
-pcout<< "deltaRho:" << deltaRho << std::endl;*/
-
 
 	// get lattice decomposition from LIGGGHTS and create lattice according to parallelization
 	// given in the LIGGGHTS input script
@@ -462,24 +412,6 @@ pcout<< "deltaRho:" << deltaRho << std::endl;*/
 	
 
 	lattice->toggleInternalStatistics(false);
-
-	/*
-	MultiScalarField3D<T> *rhoBar = generateMultiScalarField<T>((MultiBlock3D&) *lattice, largeEnvelopeWidth).release();
-	rhoBar->toggleInternalStatistics(false);
-
-	MultiTensorField3D<T,3> *j = generateMultiTensorField<T,3>((MultiBlock3D&) *lattice, largeEnvelopeWidth).release();
-	j->toggleInternalStatistics(false);
-
-	std::vector<MultiBlock3D*> rhoBarJarg;
-	rhoBarJarg.push_back(lattice);
-	rhoBarJarg.push_back(rhoBar);
-	rhoBarJarg.push_back(j);
-	integrateProcessingFunctional(
-		new ExternalRhoJcollideAndStream3D<T,DESCRIPTOR>(),
-		lattice->getBoundingBox(), rhoBarJarg, 0);
-	integrateProcessingFunctional(
-		new BoxRhoBarJfunctional3D<T,DESCRIPTOR>(),
-		lattice->getBoundingBox(), rhoBarJarg, 2);*/
 
 
    	// temperature lattice 	   
@@ -564,33 +496,6 @@ pcout<< "deltaRho:" << deltaRho << std::endl;*/
 	MultiContainerBlock3D container(*temperatureBar);
 
 
-
-
-
-/*	// Create the cylinder surface as a set of triangles.
-	Array<T,3> originalCenter(0.0, parameters.getNy()/2, parameters.getNz()/2);
-	TriangleSet<T> triangleSet;
-	triangleSet = constructCylinder<T>(originalCenter, parameters.getNy(), parameters.getNz(), parameters.getNx(), 320, 100);
-
-	// The next few lines of code are typical. They transform the surface geometry of the
-	//   tube to more efficient data structures that are internally used by palabos.
-	//   The TriangleBoundary3D structure will be later used to assign proper boundary conditions.
-	DEFscaledMesh<T> defMesh(triangleSet, parameters.getNy(), yDirection, margin, extraLayer);
-	defMesh.getMesh().inflate();
-	TriangleBoundary3D<T> boundary(defMesh);
-
-
-    // Voxelize the domain means: decide which lattice nodes are inside the solid
-    // and which are outside.
-    pcout << std::endl << "Voxelizing the simulation domain." << std::endl;
-    int flowType = voxelFlag::outside;
-    VoxelizedDomain3D<T> voxelizedDomain(triangleBoundary, flowType, param.bbox(), borderWidth,
-            extendedEnvelopeWidth, blockSize);
-    pcout << getMultiBlockInfo(voxelizedDomain.getVoxelMatrix()) << std::endl;
-    {
-        VtkImageOutput3D<T> vtkOut(outDir + "voxels_full_domain", param.dx);
-        vtkOut.writeData<float>(*copyConvert<int,T>(voxelizedDomain.getVoxelMatrix(), param.bbox()), "voxel", 1.0);
-    }*/
 
 
 /*
@@ -748,9 +653,6 @@ pcout<< "deltaRho:" << deltaRho << std::endl;*/
 					InnerVertices.back()[0] += (parameters.getNx()-1);
 				}
 
-//if(j=40) {
-//pcout << "OuterVertices: " << OuterVertices.back()[0] << "," << OuterVertices.back()[1] << "," << OuterVertices.back()[2] << std::endl;
-//}
 				T OuterVerticesTemperature;
 				T InnerVerticesTemperature;
 				if(OuterVertices.back()[1] > (parameters.getNy()-1) || OuterVertices.back()[1] < 0 || OuterVertices.back()[2] > (parameters.getNz()-1) || OuterVertices.back()[2] < 0) {
@@ -795,7 +697,7 @@ pcout<< "deltaRho:" << deltaRho << std::endl;*/
 				indexedInamuroAdvectionDiffusionIteration(SurfaceTemperatureFunc(SurfaceTemperatures),
 				*temperatureBar, container, (T) 1.0 / omega_temperature);
 			}
-pcout << "computing particles: " << j+1 << "/" << nparticles << std::endl;
+			pcout << "computing particles: " << j+1 << "/" << nparticles << std::endl;
 
 		}
 
