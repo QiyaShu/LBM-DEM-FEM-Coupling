@@ -33,9 +33,16 @@ It's built based on following open-sorce codes:
     - export LD_LIBRARY_PATH=path/to/liggghts/src/:path/to/matlab/version/runtime/glnxa64:path/to/matlab/version/bin/glnxa64:path/to/matlab/version/extern/bin/glnxa64:path/to/matlab/version/sys/os/glnxa64:path/to/version/sys/opengl/lib/glnxa64
     - source ~/.bashrc;
 6. edit Makefile of each showcase:
-    - projectFiles = (showcase).cpp ${LBDEM_ROOT}/src/liggghtsCouplingWrapper.cpp ${LBDEM_ROOT}/src/latticeDecomposition.cpp
-    - libraryPaths = ${LIGGGHTS_ROOT}/src /path/to/showcase(for specific libMatlabFE.so) /path/to/matlab/version/runtime/glnxa64 /path/to/matlab/version/bin/glnxa64
-    - includePaths = ${LBDEM_ROOT}/src ${LIGGGHTS_ROOT}/src /path/to/matlab/version/extern/include
+    - projectFiles = (showcase).cpp
+                    ${LBDEM_ROOT}/src/liggghtsCouplingWrapper.cpp
+                    ${LBDEM_ROOT}/src/latticeDecomposition.cpp
+    - libraryPaths = ${LIGGGHTS_ROOT}/src
+                    /path/to/showcase(for specific libMatlabFE.so)
+                    /path/to/matlab/version/runtime/glnxa64
+                    /path/to/matlab/version/bin/glnxa64
+    - includePaths = ${LBDEM_ROOT}/src
+                    ${LIGGGHTS_ROOT}/src
+                    /path/to/matlab/version/extern/include
     - libraries    = liblammps.so libMatlabFE.so libmwmclmcrrt.so libmwmclmcr.so
 
 ## Run the simulation
