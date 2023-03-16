@@ -36,13 +36,13 @@ fix		1 all nve/asphere # nve/sphere
 
 
 pair_style resquared 13.47e-5
-pair_coeff * * 1e-15 5e-5 4 1 4 4 1 4 #1e-5           #The last coefficient(cutoff) is optional. If not specified, the global cutoff specified in the pair_style command is used.
+pair_coeff * * 1e-15 3e-5 4 1 4 4 1 4 #1e-5           #The last coefficient(cutoff) is optional. If not specified, the global cutoff specified in the pair_style command is used.
 
 
-fix ywalls1 all wall/ees ylo EDGE 1e-15 6e-5 6.735e-5
-fix ywalls2 all wall/ees yhi EDGE 1e-15 6e-5 6.735e-5
-fix zwalls1 all wall/ees zlo EDGE 1e-15 6e-5 6.735e-5
-fix zwalls2 all wall/ees zhi EDGE 1e-15 6e-5 6.735e-5
+fix ywalls1 all wall/ees ylo EDGE 1e-15 3e-5 6.735e-5
+fix ywalls2 all wall/ees yhi EDGE 1e-15 3e-5 6.735e-5
+fix zwalls1 all wall/ees zlo EDGE 1e-15 3e-5 6.735e-5
+fix zwalls2 all wall/ees zhi EDGE 1e-15 3e-5 6.735e-5
 #fix pipewall all wall/ees xcylinder 0.1 0.1 0.1 10 1. 1e-4
 
 
