@@ -49,3 +49,8 @@ It's built based on following open-sorce codes:
 1. go to the showcase folder;
 2. command "make" to compile the object file xxx.o;
 3. excute the simulation with "./xxx".
+
+
+## References
+Shu Q., Pan L., Kneer R., Rietz M., Rohlfs W., 2023: Effective thermal conductivity simulations of suspensions containing non-spherical particles in shear flow, International Journal of Heat and Mass Transfer, Band 204, 123808.
+Shu Q., Rietz M., Kneer R., Rohlfs W., 2023: Thermal convection enhancement of laminar particle-laden flow in a square duct: fully resolved numerical investigation, Proceedings of the 17th International Heat Transfer Conference, Cape Town, Western Cape, South Africa.
